@@ -1,5 +1,5 @@
 {
-	"name": "diskerror/Thoth",
+	"name": "diskerror/thoth",
 	"description": "Code source file forensics utility",
 	"minimum-stability": "stable",
 	"license": "proprietary",
@@ -12,9 +12,12 @@
 	"require": {
 		"php": "^7.4",
 		"ext-intl": "*",
+		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-phalcon": "^4.1",
 		"diskerror/typed": "dev-master",
+		"laminas/laminas-server": "^2.10",
+		"phalcon/cli-options-parser": "^1.3",
 		"php-ds/php-ds": "^1.3"
 	},
 	"suggest": {

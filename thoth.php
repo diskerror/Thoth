@@ -4,14 +4,20 @@
 //ini_set('display_errors', '0');
 //error_reporting(E_ERROR);
 
-define('BASE_PATH', __DIR__);
+require 'vendor/autoload.php';
 
 try {
-	require 'vendor/autoload.php';
-	require 'app/Loader.php';
-	Loader::register([__DIR__ . '/app/tasks/']);
+	$loader = new Phalcon\Loader();
+	$loader->registerDirs([__DIR__ . '/tasks/']);
+	$loader->registerNamespaces([
+		'Thoth\\Logic'     => __DIR__ . '/logic',
+		'Thoth\\Resource'  => __DIR__ . '/resource',
+		'Thoth\\Service'   => __DIR__ . '/service',
+		'Thoth\\Structure' => __DIR__ . '/struct',
+	]);
+	$loader->register();
 
-	$cli = new Service\Application\Cli(__DIR__);
+	$cli = new Thoth\Service\Cli(__DIR__);
 	$cli->init();
 	$cli->run($argv);
 }
