@@ -1,8 +1,7 @@
 <?php
 
-use Thoth\Service\StdIo;
 use Thoth\Service\Reflector;
-use Thoth\Structure\Config;
+use Thoth\Service\StdIo;
 
 class MainTask extends TaskMaster
 {
@@ -11,43 +10,28 @@ class MainTask extends TaskMaster
 	 */
 	public function mainAction()
 	{
-		StdIo::outln('Usage: ./run [command [sub-command [arguments...]]]');
-		StdIo::outln();
+		StdIo\outln(
+			'Usage: [./]' . $this->config->process->name . '[.php] [command [sub-command] [arguments...]]'
+		);
+		StdIo\outln();
 
 		foreach (glob(__DIR__ . '/*Task.php') as $fileName) {
 			$className = basename($fileName, '.php');
 
+			//	Skip this file.
 			if ($className === 'MainTask') {
 				continue;
 			}
 
 			$cmd = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', substr($className, 0, -4)));
-			StdIo::outln("Command:\n\t" . $cmd . "\n");
+			StdIo\outln("Command:\n\t" . $cmd . PHP_EOL);
 
-			StdIo::outln('Sub-commands:');
+			StdIo\outln('Sub-commands:');
 			$refl = new Reflector($className);
 			foreach ($refl->getFormattedDescriptions() as $description) {
-				StdIo::outln("\t" . $description);
+				StdIo\outln("\t" . $description);
 			}
-			StdIo::outln();
+			StdIo\outln();
 		}
-
-		StdIo::outln('A hidden file named "' . $this->config->userConfigName . '" must be in the users home directory');
-		StdIo::outln('and containing configuration data in this form:');
-
-		$demoConfig = (new Config())->toArray();
-
-		unset($demoConfig['userConfigName']);
-		unset($demoConfig['caches']);
-		unset($demoConfig['process']);
-		unset($demoConfig['version']);
-		unset($demoConfig['mongodb']);
-		unset($demoConfig['twitter']['track']);
-		unset($demoConfig['wordStats']['stopWords']);
-
-		StdIo::outln('<?php');
-		StdIo::out('return ');
-		StdIo::phpOut($demoConfig);
-		StdIo::outln(';');
 	}
 }

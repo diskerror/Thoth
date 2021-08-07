@@ -1,6 +1,6 @@
 <?php
 
-namespace Logic;
+namespace Thoth\Resource;
 
 use Phalcon\Logger;
 use Phalcon\Logger\Adapter\Stream;
@@ -10,7 +10,7 @@ use Thoth\Service\StdIo;
 /**
  * This logger class writes to both a named file and to STDERR.
  *
- * @copyright     Copyright (c) 2016 Reid Woodbury Jr.
+ * @copyright     Copyright (c) 2021 Reid Woodbury Jr.
  * @license       http://www.apache.org/licenses/LICENSE-2.0.html	Apache License, Version 2.0
  */
 class LoggerFactory
@@ -48,7 +48,7 @@ class LoggerFactory
 			case 'emergency':
 			case 'error':
 //			case 'debug':
-				StdIo::err($params[0] . PHP_EOL);
+			StdIo\err($params[0] . PHP_EOL);
 		}
 		$this->_logger->$level($params[0]);
 	}

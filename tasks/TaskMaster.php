@@ -29,9 +29,9 @@ class TaskMaster extends Task
     {
         $reflector = new Reflector($this);
 
-        StdIo::outln('Sub-commands:');
+        StdIo\outln('Sub-commands:');
         foreach ($reflector->getFormattedDescriptions() as $description) {
-            StdIo::outln("\t" . $description);
+            StdIo\outln("\t" . $description);
         }
     }
 
@@ -42,9 +42,9 @@ class TaskMaster extends Task
     {
 		$reflector = new Reflector($this);
 
-        StdIo::outln('Sub-commands:');
+        StdIo\outln('Sub-commands:');
         foreach ($reflector->getFormattedDescriptions() as $description) {
-            StdIo::outln("\t" . $description);
+            StdIo\outln("\t" . $description);
         }
     }
 }

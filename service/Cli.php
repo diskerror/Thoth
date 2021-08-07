@@ -3,10 +3,13 @@
 namespace Thoth\Service;
 
 
+use GetOptionKit\OptionCollection;
+use GetOptionKit\OptionParser;
 use Phalcon\Cli\Console;
 use Phalcon\Cli\Dispatcher\Exception;
 use Phalcon\Di\FactoryDefault\Cli as FdCli;
 use Phalcon\Events\Manager;
+use Thoth\Resource\LoggerFactory;
 use Thoth\Resource\PidHandler;
 use Thoth\Service\Exception\RuntimeException;
 use Thoth\Service\StdIo;
@@ -72,11 +75,12 @@ class Cli
 			return $config;
 		});
 
-		$di->setShared('logger', function() use ($self) {
+		$di->setShared('logger', function() use ($self, $di) {
 			static $logger;
 			if (!isset($logger)) {
-//				$logger = LoggerFactory::getFileLogger($self->_basePath . '/' . $config->process->name . '.log');
-				$logger = LoggerFactory::getStreamLogger();
+				$logger = new LoggerFactory(
+					$self->_basePath . '/' . $di->getShared('config')->process->name . '.log'
+				);
 			}
 			return $logger;
 		});
@@ -111,6 +115,14 @@ class Cli
 	public function run(array $argv): string
 	{
 		try {
+			$opts = new OptionCollection();
+			$opts->add('v|verbose');
+			$parser = new OptionParser($opts);
+			$result = $parser->parse($argv);
+			foreach ($result->arguments as $rg) {
+				$parsedArgv[] = $rg;
+			}
+
 			// Parse CLI arguments.
 			//	CLI options will be parsed into $config later.
 			$args = [];
@@ -131,7 +143,7 @@ class Cli
 		catch (Exception $e) {
 			$message = $e->getMessage();
 			if (($pos = strpos($message, 'Task handler class cannot be loaded')) !== false) {
-				StdIo::err(substr($message, 0, $pos) . ' command does not exist.');
+				StdIo\err(substr($message, 0, $pos) . ' command does not exist.');
 			}
 			else {
 				throw $e;
