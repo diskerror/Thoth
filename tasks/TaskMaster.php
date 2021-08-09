@@ -8,7 +8,7 @@
 
 use Phalcon\Cli\Task;
 use Thoth\Service\Reflector;
-use Thoth\Service\StdIo;
+use function Thoth\Service\StdIo\outln;
 
 /**
  * Class TaskMaster
@@ -29,9 +29,9 @@ class TaskMaster extends Task
     {
         $reflector = new Reflector($this);
 
-        StdIo\outln('Sub-commands:');
+        outln('Sub-commands:');
         foreach ($reflector->getFormattedDescriptions() as $description) {
-            StdIo\outln("\t" . $description);
+            outln("\t" . $description);
         }
     }
 
@@ -42,9 +42,9 @@ class TaskMaster extends Task
     {
 		$reflector = new Reflector($this);
 
-        StdIo\outln('Sub-commands:');
+        outln('Sub-commands:');
         foreach ($reflector->getFormattedDescriptions() as $description) {
-            StdIo\outln("\t" . $description);
+            outln("\t" . $description);
         }
     }
 }

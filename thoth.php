@@ -15,6 +15,9 @@ try {
 		'Thoth\\Service'   => __DIR__ . '/service',
 		'Thoth\\Structure' => __DIR__ . '/struct',
 	]);
+	$loader->registerFiles([
+			'Thoth\\Service\\StdIo' => __DIR__ . '/service/StdIo.php'
+	]);
 	$loader->register();
 
 	$cli = new Thoth\Service\Cli(__DIR__);

@@ -117,23 +117,24 @@ class Cli
 		try {
 			$opts = new OptionCollection();
 			$opts->add('v|verbose');
-			$parser = new OptionParser($opts);
-			$result = $parser->parse($argv);
-			foreach ($result->arguments as $rg) {
-				$parsedArgv[] = $rg;
+			$parser     = new OptionParser($opts);
+			$result     = $parser->parse($argv);
+			$parsedArgv = [];
+			foreach ($result->arguments as $argument) {
+				$parsedArgv[] = $argument;
 			}
 
 			// Parse CLI arguments.
 			//	CLI options will be parsed into $config later.
 			$args = [];
-			if (array_key_exists(1, $argv)) {
-				$args['task'] = $argv[1];
+			if (array_key_exists(0, $parsedArgv)) {
+				$args['task'] = $argv[0];
 
-				if (array_key_exists(2, $argv)) {
-					$args['action'] = $argv[2];
+				if (array_key_exists(1, $parsedArgv)) {
+					$args['action'] = $argv[1];
 
-					if (array_key_exists(3, $argv)) {
-						$args['params'][] = $argv[3];
+					if (array_key_exists(2, $parsedArgv)) {
+						$args['params'][] = $parsedArgv[2];
 					}
 				}
 			}

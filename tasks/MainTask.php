@@ -1,7 +1,7 @@
 <?php
 
 use Thoth\Service\Reflector;
-use Thoth\Service\StdIo;
+use function Thoth\Service\StdIo\outln;
 
 class MainTask extends TaskMaster
 {
@@ -10,10 +10,10 @@ class MainTask extends TaskMaster
 	 */
 	public function mainAction()
 	{
-		StdIo\outln(
+		outln(
 			'Usage: [./]' . $this->config->process->name . '[.php] [command [sub-command] [arguments...]]'
 		);
-		StdIo\outln();
+		outln();
 
 		foreach (glob(__DIR__ . '/*Task.php') as $fileName) {
 			$className = basename($fileName, '.php');
@@ -24,14 +24,14 @@ class MainTask extends TaskMaster
 			}
 
 			$cmd = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', substr($className, 0, -4)));
-			StdIo\outln("Command:\n\t" . $cmd . PHP_EOL);
+			outln("Command:\n\t" . $cmd . PHP_EOL);
 
-			StdIo\outln('Sub-commands:');
+			outln('Sub-commands:');
 			$refl = new Reflector($className);
 			foreach ($refl->getFormattedDescriptions() as $description) {
-				StdIo\outln("\t" . $description);
+				outln("\t" . $description);
 			}
-			StdIo\outln();
+			outln();
 		}
 	}
 }
