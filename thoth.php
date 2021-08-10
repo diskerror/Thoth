@@ -7,19 +7,6 @@
 require 'vendor/autoload.php';
 
 try {
-	$loader = new Phalcon\Loader();
-	$loader->registerDirs([__DIR__ . '/tasks/']);
-	$loader->registerNamespaces([
-		'Thoth\\Logic'     => __DIR__ . '/logic',
-		'Thoth\\Resource'  => __DIR__ . '/resource',
-		'Thoth\\Service'   => __DIR__ . '/service',
-		'Thoth\\Structure' => __DIR__ . '/struct',
-	]);
-	$loader->registerFiles([
-			'Thoth\\Service\\StdIo' => __DIR__ . '/service/StdIo.php'
-	]);
-	$loader->register();
-
 	$cli = new Thoth\Service\Cli(__DIR__);
 	$cli->init();
 	$cli->run($argv);

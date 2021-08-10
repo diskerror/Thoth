@@ -21,9 +21,19 @@
 		"php-ds/php-ds": "^1.3"
 	},
 	"suggest": {
-		"ext-ds": "*"
+		"ext-ds": "Compiled version of \"php-ds\"."
 	},
 	"require-dev": {
 		"phalcon/ide-stubs": "^4.1"
+	},
+	"autoload": {
+		"classmap": ["tasks"],
+		"psr-4": {
+			"Thoth\\Logic\\": "logic",
+			"Thoth\\Resource\\": "resource",
+			"Thoth\\Service\\": "service",
+			"Thoth\\Structure\\": "struct"
+		},
+		"files": ["service/StdIo.php"]
 	}
 }
