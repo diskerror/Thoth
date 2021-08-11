@@ -14,6 +14,7 @@ use Resource\PidHandler;
 use Service\Exception\RuntimeException;
 use Service\StdIo;
 use Structure\Config;
+use function array_shift;
 use function var_export;
 
 class Cli
@@ -50,6 +51,10 @@ class Cli
 		$di = new FdCli();
 
 		$self = $this;
+
+		$di->setShared('basePath', function() use ($self) {
+			return $self->_basePath;
+		});
 
 		$di->setShared('config', function() use ($self) {
 			static $config;
@@ -127,18 +132,10 @@ class Cli
 
 			// Parse CLI arguments.
 			//	CLI options will be parsed into $config later.
-			$args = [];
-			if (array_key_exists(0, $parsedArgv)) {
-				$args['task'] = $parsedArgv[0];
-
-				if (array_key_exists(1, $parsedArgv)) {
-					$args['action'] = $parsedArgv[1];
-
-					if (array_key_exists(2, $parsedArgv)) {
-						$args['params'][] = $parsedArgv[2];
-					}
-				}
-			}
+			$args           = [];
+			$args['task']   = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
+			$args['action'] = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
+			$args['params'] = $parsedArgv;
 
 			$this->_application->handle($args);
 		}

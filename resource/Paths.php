@@ -2,18 +2,17 @@
 
 namespace Resource;
 
-use Iterator;
+use ArrayIterator;
+use IteratorAggregate;
 use Resource\Exception\InvalidArgumentException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Structure\StringArray;
-use function current;
-use function key;
 
-class Paths implements Iterator
+class Paths implements IteratorAggregate
 {
 	private $_path  = '';
-	private $_files = [];
+	public $_files = [];
 
 	protected $_pathsToIgnore = [];
 
@@ -53,29 +52,10 @@ class Paths implements Iterator
 		return false;
 	}
 
-	public function current(): string
+	public function getIterator()
 	{
-		return current($this->_files);
+		return new ArrayIterator($this->_files);
 	}
 
-	public function next(): bool
-	{
-		next($this->_files);
-	}
-
-	public function key(): string
-	{
-		return key($this->_files);
-	}
-
-	public function valid(): bool
-	{
-		return $this->valid($this->_files);
-	}
-
-	public function rewind(): void
-	{
-		$this->rewind($this->_files);
-	}
 
 }

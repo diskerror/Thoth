@@ -13,7 +13,9 @@ try {
 }
 catch (Phalcon\Cli\Dispatcher\Exception $e) {
 	fwrite(STDERR, $e->getMessage() . PHP_EOL);
+	exit(1);
 }
 catch (Throwable $t) {
 	fwrite(STDERR, $t . PHP_EOL);
+	exit(1);
 }
