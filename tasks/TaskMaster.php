@@ -7,17 +7,15 @@
  */
 
 use Phalcon\Cli\Task;
-use Thoth\Service\Reflector;
-use function Thoth\Service\StdIo\outln;
+use Service\Reflector;
+use function Service\StdIo\outln;
 
 /**
  * Class TaskMaster
  *
  * @property $config
- * @property $mongodb
  * @property $eventsManager
  * @property $logger
- * @property $stream
  * @property $pidHandler
  */
 class TaskMaster extends Task

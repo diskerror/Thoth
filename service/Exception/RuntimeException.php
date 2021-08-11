@@ -6,7 +6,7 @@
  * Time: 1:02 PM
  */
 
-namespace Thoth\Service\Exception;
+namespace Service\Exception;
 
 class RuntimeException extends \RuntimeException
 {

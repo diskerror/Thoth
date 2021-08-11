@@ -1,11 +1,11 @@
 <?php
 
-namespace Thoth\Resource;
+namespace Resource;
 
 use Phalcon\Logger;
 use Phalcon\Logger\Adapter\Stream;
 use Phalcon\Logger\Formatter\Line;
-use Thoth\Service\StdIo;
+use Service\StdIo;
 
 /**
  * This logger class writes to both a named file and to STDERR.

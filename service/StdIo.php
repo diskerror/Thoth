@@ -1,8 +1,8 @@
 <?php
 
-namespace Thoth\Service\StdIo;
+namespace Service\StdIo;
 
-use Thoth\Service\Exception\RuntimeException;
+use Service\Exception\RuntimeException;
 
 function in(int $length = 80)
 {

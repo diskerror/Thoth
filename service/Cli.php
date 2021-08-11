@@ -1,6 +1,6 @@
 <?php
 
-namespace Thoth\Service;
+namespace Service;
 
 
 use GetOptionKit\OptionCollection;
@@ -9,11 +9,12 @@ use Phalcon\Cli\Console;
 use Phalcon\Cli\Dispatcher\Exception;
 use Phalcon\Di\FactoryDefault\Cli as FdCli;
 use Phalcon\Events\Manager;
-use Thoth\Resource\LoggerFactory;
-use Thoth\Resource\PidHandler;
-use Thoth\Service\Exception\RuntimeException;
-use Thoth\Service\StdIo;
-use Thoth\Structure\Config;
+use Resource\LoggerFactory;
+use Resource\PidHandler;
+use Service\Exception\RuntimeException;
+use Service\StdIo;
+use Structure\Config;
+use function var_export;
 
 class Cli
 {
@@ -121,17 +122,17 @@ class Cli
 			$result     = $parser->parse($argv);
 			$parsedArgv = [];
 			foreach ($result->arguments as $argument) {
-				$parsedArgv[] = $argument;
+				$parsedArgv[] = $argument->arg;
 			}
 
 			// Parse CLI arguments.
 			//	CLI options will be parsed into $config later.
 			$args = [];
 			if (array_key_exists(0, $parsedArgv)) {
-				$args['task'] = $argv[0];
+				$args['task'] = $parsedArgv[0];
 
 				if (array_key_exists(1, $parsedArgv)) {
-					$args['action'] = $argv[1];
+					$args['action'] = $parsedArgv[1];
 
 					if (array_key_exists(2, $parsedArgv)) {
 						$args['params'][] = $parsedArgv[2];

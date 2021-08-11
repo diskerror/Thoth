@@ -1,9 +1,9 @@
 <?php
 
-namespace Thoth\Resource;
+namespace Resource;
 
-use Thoth\Resource\Exception\RuntimeException;
-use Thoth\Structure\Config\Process;
+use Resource\Exception\RuntimeException;
+use Structure\Config\Process;
 
 class PidHandler
 {

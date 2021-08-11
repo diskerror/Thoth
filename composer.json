@@ -29,10 +29,10 @@
 	"autoload": {
 		"classmap": ["tasks"],
 		"psr-4": {
-			"Thoth\\Logic\\": "logic",
-			"Thoth\\Resource\\": "resource",
-			"Thoth\\Service\\": "service",
-			"Thoth\\Structure\\": "struct"
+			"Logic\\": "logic",
+			"Resource\\": "resource",
+			"Service\\": "service",
+			"Structure\\": "struct"
 		},
 		"files": ["service/StdIo.php"]
 	}

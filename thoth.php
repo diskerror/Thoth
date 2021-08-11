@@ -1,13 +1,13 @@
-#!/usr/bin/env php
+#!/usr/bin/env php -e
 <?php
 
-//ini_set('display_errors', '0');
-//error_reporting(E_ERROR);
+ini_set('display_errors', '1');
+error_reporting(E_ERROR);
 
 require 'vendor/autoload.php';
 
 try {
-	$cli = new Thoth\Service\Cli(__DIR__);
+	$cli = new Service\Cli(__DIR__);
 	$cli->init();
 	$cli->run($argv);
 }

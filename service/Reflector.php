@@ -6,7 +6,7 @@
  * Time: 10:59 AM
  */
 
-namespace Thoth\Service;
+namespace Service;
 
 
 use Laminas\Server\Reflection;

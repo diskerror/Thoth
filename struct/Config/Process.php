@@ -1,6 +1,6 @@
 <?php
 
-namespace Thoth\Structure\Config;
+namespace Structure\Config;
 
 
 use Diskerror\Typed\TypedClass;

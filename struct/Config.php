@@ -1,9 +1,9 @@
 <?php
 
-namespace Thoth\Structure;
+namespace Structure;
 
 use Diskerror\Typed\TypedClass;
-use Thoth\Structure\Config\Process;
+use Structure\Config\Process;
 
 class Config extends TypedClass
 {

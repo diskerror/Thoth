@@ -1,7 +1,7 @@
 <?php
 
-use Thoth\Service\Reflector;
-use function Thoth\Service\StdIo\outln;
+use Service\Reflector;
+use function Service\StdIo\outln;
 
 class MainTask extends TaskMaster
 {
