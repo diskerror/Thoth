@@ -2,7 +2,7 @@
 
 use Resource\Paths;
 use Structure\StringArray;
-use function Service\StdIo\outln;
+use Service\StdIo;
 
 class FileTask extends TaskMaster
 {
@@ -67,7 +67,7 @@ class FileTask extends TaskMaster
 		$baseLen  = strlen(basename($pathRoot));
 		$paths->loadFileNames($pathRoot);
 		foreach ($paths as $path => $baseName) {
-			outln($path . "\t" .  filesize($pathRoot . substr($path, $baseLen)));
+			StdIo::outln($path . "\t" . filesize($pathRoot . substr($path, $baseLen)));
 		}
 	}
 

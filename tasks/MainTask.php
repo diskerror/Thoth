@@ -1,7 +1,7 @@
 <?php
 
 use Service\Reflector;
-use function Service\StdIo\outln;
+use  Service\StdIo;
 
 class MainTask extends TaskMaster
 {
@@ -10,10 +10,10 @@ class MainTask extends TaskMaster
 	 */
 	public function mainAction()
 	{
-		outln(
+		StdIo::outln(
 			'Usage: [./]' . $this->config->process->name . '[.php] [command [sub-command] [arguments...]]'
 		);
-		outln();
+		StdIo::outln();
 
 		foreach (glob(__DIR__ . '/*Task.php') as $fileName) {
 			$className = basename($fileName, '.php');
@@ -24,14 +24,14 @@ class MainTask extends TaskMaster
 			}
 
 			$cmd = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', substr($className, 0, -4)));
-			outln("Command:\n\t" . $cmd . PHP_EOL);
+			StdIo::outln("Command:\n\t" . $cmd . PHP_EOL);
 
-			outln('Sub-commands:');
+			StdIo::outln('Sub-commands:');
 			$refl = new Reflector($className);
 			foreach ($refl->getFormattedDescriptions() as $description) {
-				outln("\t" . $description);
+				StdIo::outln("\t" . $description);
 			}
-			outln();
+			StdIo::outln();
 		}
 	}
 }

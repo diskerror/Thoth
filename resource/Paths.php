@@ -12,9 +12,9 @@ use Structure\StringArray;
 class Paths implements IteratorAggregate
 {
 	private $_path  = '';
-	public $_files = [];
+	private $_files = [];
 
-	protected $_pathsToIgnore = [];
+	private $_pathsToIgnore = [];
 
 	public function __construct(StringArray $paths)
 	{
@@ -42,7 +42,7 @@ class Paths implements IteratorAggregate
 		}
 	}
 
-	protected function _arrayValueInString(string $haystack): bool
+	private function _arrayValueInString(string $haystack): bool
 	{
 		foreach ($this->_pathsToIgnore as $needle) {
 			if (strpos($haystack, $needle) !== false) {
@@ -56,6 +56,5 @@ class Paths implements IteratorAggregate
 	{
 		return new ArrayIterator($this->_files);
 	}
-
 
 }

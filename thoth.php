@@ -1,7 +1,7 @@
-#!/usr/bin/env php -e
+#!/usr/bin/env php
 <?php
 
-ini_set('display_errors', '1');
+//ini_set('display_errors', '0');
 error_reporting(E_ERROR);
 
 require 'vendor/autoload.php';

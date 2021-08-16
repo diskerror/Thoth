@@ -15,6 +15,7 @@
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-phalcon": "^4.1",
+		"ext-xml":"*",
 		"corneltek/getoptionkit": "^2.6",
 		"diskerror/typed": "dev-master",
 		"laminas/laminas-server": "^2.10",

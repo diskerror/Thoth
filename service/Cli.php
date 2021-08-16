@@ -2,7 +2,6 @@
 
 namespace Service;
 
-
 use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
 use Phalcon\Cli\Console;
@@ -12,10 +11,7 @@ use Phalcon\Events\Manager;
 use Resource\LoggerFactory;
 use Resource\PidHandler;
 use Service\Exception\RuntimeException;
-use Service\StdIo;
 use Structure\Config;
-use function array_shift;
-use function var_export;
 
 class Cli
 {
@@ -130,8 +126,6 @@ class Cli
 				$parsedArgv[] = $argument->arg;
 			}
 
-			// Parse CLI arguments.
-			//	CLI options will be parsed into $config later.
 			$args           = [];
 			$args['task']   = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
 			$args['action'] = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
@@ -142,7 +136,7 @@ class Cli
 		catch (Exception $e) {
 			$message = $e->getMessage();
 			if (($pos = strpos($message, 'Task handler class cannot be loaded')) !== false) {
-				StdIo\err(substr($message, 0, $pos) . ' command does not exist.');
+				StdIo::err(substr($message, 0, $pos) . ' command does not exist.');
 			}
 			else {
 				throw $e;
