@@ -34,7 +34,6 @@
 			"Resource\\": "resource",
 			"Service\\": "service",
 			"Structure\\": "struct"
-		},
-		"files": ["service/StdIo.php"]
+		}
 	}
 }
