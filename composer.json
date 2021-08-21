@@ -30,10 +30,10 @@
 	"autoload": {
 		"classmap": ["tasks"],
 		"psr-4": {
-			"Logic\\": "logic",
-			"Resource\\": "resource",
-			"Service\\": "service",
-			"Structure\\": "struct"
+			"Logic\\": "models/logic",
+			"Resource\\": "models/resource",
+			"Service\\": "models/service",
+			"Structure\\": "models/struct"
 		}
 	}
 }
