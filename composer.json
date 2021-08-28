@@ -17,6 +17,7 @@
 		"ext-phalcon": "^4.1",
 		"ext-xml":"*",
 		"corneltek/getoptionkit": "^2.6",
+		"diskerror/autoload": "dev-main",
 		"diskerror/typed": "dev-master",
 		"laminas/laminas-server": "^2.10",
 		"php-ds/php-ds": "^1.3"

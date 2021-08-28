@@ -4,9 +4,9 @@
 //ini_set('display_errors', '0');
 error_reporting(E_ERROR);
 
-require 'vendor/autoload.php';
-
 try {
+	require 'vendor/diskerror/autoload/autoload.php';
+
 	$cli = new Service\Cli(__DIR__);
 	$cli->init();
 	$cli->run($argv);
