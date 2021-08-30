@@ -4,3 +4,4 @@
 composer.lock
 vendor
 ._.*
+.DS_Store
