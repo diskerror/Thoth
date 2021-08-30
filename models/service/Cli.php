@@ -12,6 +12,7 @@ use Resource\LoggerFactory;
 use Resource\PidHandler;
 use Service\Exception\RuntimeException;
 use Structure\Config;
+use function substr;
 
 class Cli
 {
@@ -40,24 +41,27 @@ class Cli
 	}
 
 	/**
-	 * @return Cli
+	 * @param array $argv
+	 *
+	 * @throws Exception
 	 */
-	public function init(): self
+	public function run(array $argv): string
 	{
 		$di = new FdCli();
 
-		$self = $this;
+		$basePath = $this->_basePath;
 
-		$di->setShared('basePath', function() use ($self) {
-			return $self->_basePath;
+		//	Setup shared resources and services.
+		$di->setShared('basePath', function() use ($basePath) {
+			return $basePath;
 		});
 
-		$di->setShared('config', function() use ($self) {
+		$di->setShared('config', function() use ($basePath) {
 			static $config;
 
 			if (!isset($config)) {
-				$configName = $self->_basePath . '/config.php';
-				$devName    = $self->_basePath . '/dev.config.php';
+				$configName = $basePath . '/config.php';
+				$devName    = $basePath . '/dev.config.php';
 
 				//	File must exist.
 				$config = new Config(require $configName);
@@ -77,11 +81,11 @@ class Cli
 			return $config;
 		});
 
-		$di->setShared('logger', function() use ($self, $di) {
+		$di->setShared('logger', function() use ($basePath, $di) {
 			static $logger;
 			if (!isset($logger)) {
 				$logger = new LoggerFactory(
-					$self->_basePath . '/' . $di->getShared('config')->process->name . '.log'
+					$basePath . '/' . $di->getShared('config')->process->name . '.log'
 				);
 			}
 			return $logger;
@@ -103,39 +107,30 @@ class Cli
 			return $pidHandler;
 		});
 
-
-		$this->_application = new Console($di);
-
-		return $this;
-	}
-
-	/**
-	 * @param array $argv
-	 *
-	 * @throws Exception
-	 */
-	public function run(array $argv): string
-	{
-		try {
-			$opts = new OptionCollection();
-			$opts->add('v|verbose');
-			$parser     = new OptionParser($opts);
-			$result     = $parser->parse($argv);
-			$parsedArgv = [];
-			foreach ($result->arguments as $argument) {
-				$parsedArgv[] = $argument->arg;
-			}
-
-			$args           = [];
-			$args['task']   = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
-			$args['action'] = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
-			$args['params'] = $parsedArgv;
-
-			$this->_application->handle($args);
+		//	Parse command line options.
+		$opts = new OptionCollection();
+		$opts->add('v|verbose');
+		$parser     = new OptionParser($opts);
+		$result     = $parser->parse($argv);
+		$parsedArgv = [];
+		foreach ($result->arguments as $argument) {
+			$parsedArgv[] = $argument->arg;
 		}
-		catch (Exception $e) {
+
+		//	Reassemble command line arguments.
+		$args           = [];
+		$args['task']   = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
+		$args['action'] = (count($parsedArgv)) ? array_shift($parsedArgv) : '';
+		$args['params'] = $parsedArgv;
+
+		try {
+			$application = new Console($di);
+			$application->handle($args);
+		}
+		catch (\Exception $e) {
 			$message = $e->getMessage();
 			if (($pos = strpos($message, 'Task handler class cannot be loaded')) !== false) {
+				StdIo::err(substr($message, 0, $pos) . ' command does not exist.');
 				StdIo::err(substr($message, 0, $pos) . ' command does not exist.');
 			}
 			else {
