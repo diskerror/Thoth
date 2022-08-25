@@ -131,7 +131,6 @@ class Cli
 			$message = $e->getMessage();
 			if (($pos = strpos($message, 'Task handler class cannot be loaded')) !== false) {
 				StdIo::err(substr($message, 0, $pos) . ' command does not exist.');
-				StdIo::err(substr($message, 0, $pos) . ' command does not exist.');
 			}
 			else {
 				throw $e;
