@@ -15,15 +15,17 @@
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-phalcon": "^4.1",
+		"ext-sqlite3": "^7.4",
 		"ext-xml":"*",
 		"corneltek/getoptionkit": "^2.6",
 		"diskerror/autoload": "dev-main",
 		"diskerror/typed": "dev-master",
 		"laminas/laminas-server": "^2.10",
-		"php-ds/php-ds": "^1.3"
+		"php-ds/php-ds": "^1.3",
+		"rodneyrehm/plist": "^2.0"
 	},
 	"suggest": {
-		"ext-ds": "Compiled version of \"php-ds\"."
+		"ext-ds": "*"
 	},
 	"require-dev": {
 		"phalcon/ide-stubs": "^4.1"
