@@ -7,9 +7,16 @@ use Service\StdIo;
  */
 class TokenizeTask extends TaskMaster
 {
-	public function main()
+	/**
+	 * Dump all tokens in named file to screen.
+	 *
+	 * @param string $fName
+	 *
+	 * @return void
+	 */
+	public function getAllAction(string $fName)
 	{
-		$code = file_get_contents(func_get_arg(0));
+		$code = file_get_contents($fName);
 		StdIo::jsonOut(token_get_all($code));
 	}
 }

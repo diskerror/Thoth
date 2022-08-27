@@ -4,6 +4,13 @@ use Service\StdIo;
 
 class SqliteTask extends TaskMaster
 {
+	/**
+	 * Dumps all data in SQLite file to screen.
+	 *
+	 * @param string $fName
+	 *
+	 * @return void
+	 */
 	function dumpAction(string $fName)
 	{
 		if (!file_exists($fName)) {

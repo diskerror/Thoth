@@ -14,7 +14,7 @@ class Paths implements IteratorAggregate
 	private $_path  = '';
 	private $_files = [];
 
-	private $_pathsToIgnore = [];
+	private $_pathsToIgnore;
 
 	public function __construct(StringArray $paths)
 	{
