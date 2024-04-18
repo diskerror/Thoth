@@ -39,13 +39,15 @@ class Csv
 	}
 
 	/**
-	 * Move file pointer past UTF-8 BOM, if any.
+	 * Move file pointer past UTF-8 BOM, if any
+	 * or place at beginning of file.
 	 *
 	 * @param $fp
 	 *
 	 * @return void
 	 */
-	public static function skipBOM($fp){
+	public static function skipBOM($fp): void
+	{
 		$bom = fgets($fp);
 		if (substr($bom, 0, 3) === "\xEF\xBB\xBF") {
 			fseek($fp, 3);

@@ -35,16 +35,16 @@ class FileTask extends TaskMaster
 			$foundFiles = array_keys($list2->files, $basename);
 			foreach ($foundFiles as $secondFile) {
 //			fwrite($fp, $firstFile . PHP_EOL);
-//			fwrite($fp, $firstFile . "\t" . $secondFile . "\t" . $basename . PHP_EOL);
-				++$result[dirname($firstFile) . "\t" . dirname($secondFile)];
+			fwrite($fp, $firstFile . "\t" . $secondFile . "\t" . $basename . PHP_EOL);
+//				++$result[dirname($firstFile) . "\t" . dirname($secondFile)];
 			}
 		}
 
-		foreach ($result as $k => $v) {
-			if ($v > 2) {
-				fwrite($fp, $k . "\t" . $v . PHP_EOL);
-			}
-		}
+//		foreach ($result as $k => $v) {
+//			if ($v > 2) {
+//				fwrite($fp, $k . "\t" . $v . PHP_EOL);
+//			}
+//		}
 
 		if ($fp !== STDOUT) {
 			fclose($fp);

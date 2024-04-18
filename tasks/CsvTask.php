@@ -99,18 +99,18 @@ class CsvTask extends TaskMaster
 
 		$xlated = [];
 		foreach ($data as $d) {
-			if ($d['Type'] === 'General Currency Conversion' || $d['Balance Impact'] === 'Memo') {
+			if (/*$d['Type'] === 'General Currency Conversion' || */$d['Balance Impact'] === 'Memo') {
 				continue;
 			}
 
 			$xlated[] = [
 				'Date'                 => $d['Date'],
-				'Description'          => $d['Name'],
+				'Description'          => 'T '.$d['Name'],
 				'Original Description' => '',
-				'Amount'               => abs($d['Gross']),    //	must always be positive
+				'Amount'               => $d['Gross'],
 				'Transaction Type'     => strtolower($d['Balance Impact']),    //	credit or debit
-				'Category'             => $d['Type'],
-				'Account Name'         => $d['Transaction ID'],
+				'Category'             => 'PayPal:'.$d['Type'],
+				'Account Name'         => '',
 				'Labels'               => '',
 				'Notes'                => $d['Item Title'],
 			];
